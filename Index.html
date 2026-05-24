@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M4Money Framework</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#C41E3A;--red-bg:#FFF1F2;
+  --bg:#F4FAF8;--surface:#EBF4F0;
+  --text:#1A1A1A;--muted:#6B6B6B;--border:#C8DDD6;
+  --arb:#2563EB;--arb-bg:#EFF6FF;
+  --eq:#C41E3A;--eq-bg:#FFF1F2;
+  --sav:#059669;--sav-bg:#ECFDF5;
+  --gold:#B45309;--gold-bg:#FFFBEB;
+  --purple:#7C3AED;--purple-bg:#F5F3FF;
+  --green:#166534;--green-bg:#F0FDF4;
+  --teal:#0F766E;--teal-dark:#0D5C56;--teal-light:#CCFBF1;
+  --header-bg:linear-gradient(135deg,#0F766E 0%,#0891B2 60%,#166534 100%);
+  --footer-bg:linear-gradient(135deg,#0F766E 0%,#0891B2 100%);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:0 0 40px}
+.container{max-width:1020px;margin:0 auto;padding:0 20px}
+
+/* ── HEADER ── */
+header{
+  background: linear-gradient(135deg, #064E3B 0%, #0F766E 35%, #0891B2 70%, #1E3A5F 100%);
+  padding: 0;
+  margin-bottom: 0;
+  position: relative;
+  overflow: hidden;
+}
+/* geometric circle decorations */
+header::before{
+  content:'';
+  position:absolute;
+  width:420px;height:420px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(94,234,212,0.12) 0%,transparent 70%);
+  right:-80px;top:-120px;
+  pointer-events:none;
+}
+.header-orb{
+  position:absolute;
+  width:200px;height:200px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(52,211,153,0.10) 0%,transparent 70%);
+  left:60px;bottom:-60px;
+  pointer-events:none;
+}
+.header-orb2{
+  position:absolute;
+  width:140px;height:140px;
+  border-radius:50%;
+  border:1px solid rgba(94,234,212,0.15);
+  right:200px;top:10px;
+  pointer-events:none;
+}
+.header-orb3{
+  position:absolute;
+  width:80px;height:80px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,0.08);
+  right:240px;top:40px;
+  pointer-events:none;
+}
+/* watermark */
+.header-watermark{
+  position:absolute;
+  right:-20px;top:-30px;
+  font-family:'DM Serif Display',serif;
+  font-size:11rem;
+  color:rgba(255,255,255,0.04);
+  line-height:1;
+  pointer-events:none;
+  user-select:none;
+  letter-spacing:-4px;
+}
+/* bottom accent bar */
+header .header-accent{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:3px;
+  background:linear-gradient(90deg,#5EEAD4 0%,#34D399 40%,#6EE7B7 70%,rgba(94,234,212,0) 100%);
+}
+.header-inner{
+  max-width:1020px;
+  margin:0 auto;
+  padding:40px 20px 36px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:2;
+}
+.header-left{}
+.header-eyebrow{
+  font-size:0.68rem;
+  font-weight:700;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:rgba(94,234,212,0.85);
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.header-eyebrow::before{
+  content:'';
+  display:inline-block;
+  width:24px;height:2px;
+  background:#5EEAD4;
+  border-radius:2px;
+}
+header h1{
+  font-family:'DM Serif Display',serif;
+  font-size:2.4rem;
+  line-height:1.1;
+  color:#fff;
+  letter-spacing:-0.5px;
+}
+header h1 .m4{color:#5EEAD4}
+header h1 .money{color:#fff}
+.header-tagline{
+  font-size:0.83rem;
+  color:rgba(255,255,255,0.6);
+  margin-top:10px;
+  letter-spacing:0.02em;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.header-tagline .htag-sep{color:rgba(94,234,212,0.4);font-size:0.6rem}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.header-badge{
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(94,234,212,0.35);
+  border-radius:8px;
+  padding:10px 18px;
+  font-size:0.78rem;
+  font-weight:600;
+  color:#fff;
+  white-space:nowrap;
+  backdrop-filter:blur(8px);
+  line-height:1.4;
+  text-align:right;
+}
+.header-badge .hb-main{font-family:'DM Serif Display',serif;font-size:1.1rem;color:#5EEAD4;display:block;margin-bottom:2px}
+.header-stats{display:flex;gap:20px}
+.hstat{text-align:center}
+.hstat .hst-val{font-family:'DM Serif Display',serif;font-size:1.4rem;color:#fff;line-height:1}
+.hstat .hst-lbl{font-size:0.63rem;color:rgba(255,255,255,0.5);margin-top:3px;letter-spacing:0.05em;text-transform:uppercase}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:0;background:#fff;padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(15,118,110,0.08)}
+.tabs-inner{max-width:1020px;margin:0 auto;display:flex}
+.tab-btn{padding:14px 22px;font-size:0.82rem;font-weight:600;letter-spacing:0.04em;background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;color:var(--muted);margin-bottom:-2px;transition:all .2s}
+.tab-btn.active{color:var(--teal);border-bottom-color:var(--teal)}
+.tab-btn:hover:not(.active){color:var(--teal);background:rgba(15,118,110,0.04)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.tab-content-wrap{padding-top:28px}
+
+/* ── SECTION LABEL ── */
+.slbl{font-size:0.69rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+
+/* ── TOGGLE ── */
+.toggle{position:relative;display:inline-block;width:36px;height:20px}
+.toggle input{opacity:0;width:0;height:0}
+.slider-sw{position:absolute;cursor:pointer;inset:0;background:#ccc;border-radius:20px;transition:.3s}
+.slider-sw::before{content:'';position:absolute;width:14px;height:14px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
+input:checked+.slider-sw{background:var(--red)}
+input:checked+.slider-sw::before{transform:translateX(16px)}
+
+/* ── FUND CARDS ── */
+.fund-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.fund-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 18px 20px;transition:opacity .25s}
+.fund-card.disabled{opacity:.42}
+.fund-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.fname{font-size:0.71rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase}
+.fname.arb{color:var(--arb)}.fname.eq{color:var(--eq)}.fname.sav{color:var(--sav)}
+.fund-row{margin-bottom:12px}
+.fund-row label{display:block;font-size:0.68rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.fund-row input[type=range]{width:100%;accent-color:var(--red);cursor:pointer}
+.rv{font-family:'DM Serif Display',serif;font-size:1.2rem;margin-top:3px}
+.rv small{font-family:'DM Sans',sans-serif;font-size:0.74rem;color:var(--muted)}
+select.fund-type-sel{width:100%;font-size:0.8rem;padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);margin-bottom:12px;cursor:pointer}
+
+/* ── HERO ── */
+.hero{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.hcard{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 16px;position:relative;overflow:hidden}
+.hcard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.hcard.arb::after{background:var(--arb)}.hcard.eq::after{background:var(--eq)}.hcard.sav::after{background:var(--sav)}.hcard.tot::after{background:var(--text)}
+.hcard.card-disabled{opacity:.35}
+.hcard .lbl{font-size:0.67rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.hcard .big{font-family:'DM Serif Display',serif;font-size:1.5rem;line-height:1}
+.hcard .inv{font-size:0.77rem;color:var(--muted);margin-top:5px}
+.badge{display:inline-block;font-size:0.75rem;font-weight:600;padding:2px 9px;border-radius:20px;margin-top:8px}
+.arb .badge{background:var(--arb-bg);color:var(--arb)}.eq .badge{background:var(--eq-bg);color:var(--eq)}.sav .badge{background:var(--sav-bg);color:var(--sav)}.tot .badge{background:var(--green-bg);color:var(--green)}
+
+/* ── PROGRESS ── */
+.progress-section{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:28px}
+.prow{margin-bottom:14px}.prow:last-child{margin-bottom:0}
+.prow-hd{display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.81rem}
+.prow-hd .pname{font-weight:600}.prow-hd .pvals{color:var(--muted);font-size:0.77rem}
+.bar-track{background:var(--surface);border-radius:4px;height:7px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width .45s ease}
+.bar-arb{background:var(--arb)}.bar-eq{background:var(--eq)}.bar-sav{background:var(--sav)}.bar-tot{background:linear-gradient(90deg,var(--arb),var(--eq))}
+
+/* ── TABLE ── */
+.tbl-wrap{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:28px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:0.82rem;background:#fff;min-width:620px}
+thead th{padding:11px 13px;font-size:0.66rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);background:var(--surface);border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
+tbody td{padding:10px 13px;white-space:nowrap}
+tbody tr:not(:last-child) td{border-bottom:1px solid var(--border)}
+tbody tr:hover{background:var(--bg)}
+.av{color:var(--arb);font-weight:500}.ev{color:var(--eq);font-weight:500}.sv{color:var(--sav);font-weight:500}
+.highlight{background:#FFFBF0!important;font-weight:600}
+.yr-sep td{border-top:2px solid var(--border)!important;background:var(--surface)!important;font-size:0.71rem;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+
+/* ── GOAL PANEL ── */
+.goal-intro{background:#fff;border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin-bottom:28px}
+.goal-intro h3{font-size:0.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.goal-intro p{font-size:0.83rem;color:var(--muted);line-height:1.6}
+
+.goal-list{display:flex;flex-direction:column;gap:14px;margin-bottom:28px}
+.goal-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;position:relative}
+.goal-card-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.goal-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.goal-card-header .gtitle{font-weight:600;font-size:0.92rem}
+.goal-card-header .gcat{font-size:0.73rem;color:var(--muted)}
+.goal-remove{position:absolute;top:14px;right:16px;background:none;border:none;cursor:pointer;font-size:1rem;color:var(--muted);line-height:1}
+.goal-remove:hover{color:var(--red)}
+.goal-fields{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.gf label{display:block;font-size:0.67rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.gf input,.gf select{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:7px;font-size:0.85rem;font-family:'DM Sans',sans-serif;background:#fff;color:var(--text)}
+.gf input:focus,.gf select:focus{outline:2px solid var(--red);border-color:transparent}
+.goal-result{margin-top:14px;background:var(--surface);border-radius:8px;padding:12px 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gr-item .grl{font-size:0.67rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.gr-item .grv{font-family:'DM Serif Display',serif;font-size:1.1rem}
+
+.add-goal-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.add-goal-btn{padding:9px 18px;border:1.5px dashed var(--border);border-radius:8px;background:none;cursor:pointer;font-size:0.82rem;font-family:'DM Sans',sans-serif;color:var(--muted);transition:all .2s}
+.add-goal-btn:hover{border-color:var(--red);color:var(--red)}
+
+/* ── ALLOCATION PLAN ── */
+.alloc-box{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:28px}
+.alloc-box h3{font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:6px}
+.alloc-box .sub{font-size:0.82rem;color:var(--muted);margin-bottom:20px}
+.alloc-total{font-size:1rem;font-weight:600;margin-bottom:16px;padding:12px 16px;background:var(--green-bg);border-radius:8px;color:var(--green)}
+.alloc-row{display:grid;grid-template-columns:180px 1fr 140px 100px;gap:12px;align-items:center;margin-bottom:12px}
+.alloc-row .al-name{font-size:0.82rem;font-weight:600}
+.alloc-row .al-bar-track{background:var(--surface);border-radius:4px;height:8px;overflow:hidden}
+.alloc-row .al-bar-fill{height:100%;border-radius:4px;transition:width .4s}
+.alloc-row .al-amt{font-family:'DM Serif Display',serif;font-size:1rem;text-align:right}
+.alloc-row .al-pct{font-size:0.78rem;color:var(--muted);text-align:right}
+
+.suggestion-box{background:var(--gold-bg);border:1px solid #FDE68A;border-radius:12px;padding:20px;margin-bottom:28px}
+.suggestion-box h3{font-size:0.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.sug-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.sug-card{background:#fff;border-radius:9px;padding:14px 16px;border:1px solid #FDE68A}
+.sug-card .sc-name{font-size:0.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.sug-card .sc-amt{font-family:'DM Serif Display',serif;font-size:1.3rem}
+.sug-card .sc-note{font-size:0.76rem;color:var(--muted);margin-top:4px;line-height:1.4}
+.apply-btn{margin-top:16px;padding:10px 24px;background:var(--red);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.85rem;font-weight:600;font-family:'DM Sans',sans-serif;transition:background .2s}
+.apply-btn:hover{background:var(--red-bright, #E8192C)}
+
+/* ── GAP ANALYSIS ── */
+.gap-empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.gap-status-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.gsb-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 16px;position:relative;overflow:hidden}
+.gsb-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.gsb-card.positive::after{background:#16a34a}.gsb-card.negative::after{background:var(--red)}.gsb-card.neutral::after{background:var(--gold)}.gsb-card.info::after{background:var(--arb)}
+.gsb-card .gl{font-size:0.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.gsb-card .gv{font-family:'DM Serif Display',serif;font-size:1.5rem;line-height:1}
+.gsb-card .gs{font-size:0.77rem;color:var(--muted);margin-top:5px}
+.gsb-card .chip{display:inline-block;font-size:0.73rem;font-weight:700;padding:2px 9px;border-radius:20px;margin-top:7px}
+.chip-up{background:#dcfce7;color:#16a34a}.chip-dn{background:var(--eq-bg);color:var(--red)}.chip-warn{background:var(--gold-bg);color:var(--gold)}
+
+.gap-table-wrap{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:28px;overflow-x:auto}
+.gap-table{width:100%;border-collapse:collapse;font-size:0.83rem;background:#fff;min-width:700px}
+.gap-table thead th{padding:11px 14px;font-size:0.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface);border-bottom:1px solid var(--border);text-align:left}
+.gap-table tbody td{padding:11px 14px;border-bottom:1px solid var(--border)}
+.gap-table tbody tr:last-child td{border-bottom:none}
+.gap-table tbody tr:hover{background:var(--bg)}
+.gap-up{color:#16a34a;font-weight:600}.gap-dn{color:var(--red);font-weight:600}.gap-ok{color:var(--muted)}
+.indicator{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.ind-up{background:#16a34a}.ind-dn{background:var(--red)}.ind-ok{background:#94a3b8}
+
+.gap-bar-wrap{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:28px}
+.gap-bar-wrap h3{font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:4px}
+.gap-bar-wrap .sub{font-size:0.81rem;color:var(--muted);margin-bottom:20px}
+.compare-row{margin-bottom:20px}
+.compare-row:last-child{margin-bottom:0}
+.compare-row .cr-label{font-size:0.78rem;font-weight:600;margin-bottom:8px}
+.double-bar{display:flex;flex-direction:column;gap:5px}
+.dbar-item{display:flex;align-items:center;gap:10px;font-size:0.76rem}
+.dbar-item .dbl{width:90px;flex-shrink:0;color:var(--muted)}
+.dbar-item .dbt{flex:1;background:var(--surface);border-radius:4px;height:10px;overflow:hidden}
+.dbar-item .dbf{height:100%;border-radius:4px;transition:width .5s ease}
+.dbar-item .dbv{width:80px;flex-shrink:0;text-align:right;font-weight:600}
+
+.extra-income-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #86efac;border-radius:12px;padding:24px;margin-bottom:28px}
+.extra-income-box h3{font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:4px;color:var(--green)}
+.extra-income-box .sub{font-size:0.82rem;color:#166534;margin-bottom:18px}
+.ei-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ei-card{background:#fff;border-radius:9px;padding:14px 16px;border:1px solid #86efac}
+.ei-card .eil{font-size:0.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.ei-card .eiv{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--green)}
+.ei-card .ein{font-size:0.76rem;color:var(--muted);margin-top:4px;line-height:1.4}
+
+.insight-box{background:#fff;border:1px solid var(--border);border-left:4px solid var(--purple);border-radius:0 12px 12px 0;padding:20px 22px;margin-bottom:28px}
+.insight-box h3{font-size:0.69rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--purple);margin-bottom:14px}
+.insight-list{display:flex;flex-direction:column;gap:10px}
+.insight-item{display:flex;gap:12px;align-items:flex-start;font-size:0.83rem;line-height:1.5}
+.insight-item .ii-icon{font-size:1rem;flex-shrink:0;margin-top:1px}
+.insight-item.good .ii-text{color:#166534}.insight-item.warn .ii-text{color:#92400e}.insight-item.bad .ii-text{color:var(--red)}
+
+.rebal-btn{padding:10px 22px;background:var(--purple);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.83rem;font-weight:600;font-family:'DM Sans',sans-serif;margin-top:16px;margin-right:10px}
+.rebal-btn:hover{opacity:.88}
+
+/* ── TAX BOX ── */
+.tax-box{background:#fff;border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 12px 12px 0;padding:20px 22px;margin-bottom:28px}
+.tax-box h3{font-size:0.69rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+.tax-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ti .tl{font-size:0.73rem;color:var(--muted);margin-bottom:2px}
+.ti .tv{font-size:0.87rem;font-weight:600}
+
+/* ── FUND EXPLORER ── */
+.fe-intro{background:#fff;border:1px solid var(--border);border-left:4px solid var(--arb);border-radius:0 12px 12px 0;padding:18px 22px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.fe-intro-text h3{font-size:0.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--arb);margin-bottom:4px}
+.fe-intro-text p{font-size:0.82rem;color:var(--muted);line-height:1.5}
+.fe-updated{font-size:0.72rem;color:var(--muted);background:var(--surface);padding:5px 12px;border-radius:20px;white-space:nowrap}
+
+.fe-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
+.fe-filter-btn{padding:7px 16px;border:1.5px solid var(--border);border-radius:20px;background:#fff;font-size:0.79rem;font-weight:600;cursor:pointer;color:var(--muted);transition:all .2s;font-family:'DM Sans',sans-serif}
+.fe-filter-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
+.fe-filter-btn:hover:not(.active){border-color:var(--text);color:var(--text)}
+.fe-period-wrap{margin-left:auto;display:flex;gap:6px}
+.fe-period-btn{padding:6px 14px;border:1.5px solid var(--border);border-radius:20px;background:#fff;font-size:0.78rem;font-weight:600;cursor:pointer;color:var(--muted);transition:all .2s;font-family:'DM Sans',sans-serif}
+.fe-period-btn.active{background:var(--red);color:#fff;border-color:var(--red)}
+
+.fe-segment{margin-bottom:32px}
+.fe-seg-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--border)}
+.fe-seg-title{display:flex;align-items:center;gap:10px}
+.fe-seg-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.fe-seg-name{font-family:'DM Serif Display',serif;font-size:1.1rem}
+.fe-seg-desc{font-size:0.76rem;color:var(--muted);margin-top:1px}
+.fe-live-link{font-size:0.76rem;font-weight:600;color:var(--arb);text-decoration:none;padding:6px 14px;border:1.5px solid var(--arb);border-radius:20px;transition:all .2s;white-space:nowrap}
+.fe-live-link:hover{background:var(--arb);color:#fff}
+
+.fe-fund-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.fe-fund-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;position:relative;overflow:hidden;transition:box-shadow .2s}
+.fe-fund-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.fe-fund-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.fe-fund-card .fc-rank{position:absolute;top:14px;right:14px;font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--surface);line-height:1}
+.fe-fund-card .fc-name{font-size:0.85rem;font-weight:600;line-height:1.35;margin-bottom:4px;padding-right:28px}
+.fe-fund-card .fc-house{font-size:0.73rem;color:var(--muted);margin-bottom:12px}
+.fe-fund-card .fc-returns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.fe-fund-card .fc-ret-item{text-align:center}
+.fe-fund-card .fc-ret-item .rperiod{font-size:0.62rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.fe-fund-card .fc-ret-item .rval{font-family:'DM Serif Display',serif;font-size:1rem;line-height:1}
+.fe-fund-card .fc-ret-item .rval.active-period{padding:2px 4px;border-radius:4px}
+.fe-fund-card .fc-meta{display:flex;gap:8px;flex-wrap:wrap}
+.fc-tag{font-size:0.68rem;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--surface);color:var(--muted)}
+.fc-tag.top{background:#dcfce7;color:#166534}
+.fc-tag.consistent{background:#dbeafe;color:#1d4ed8}
+.fc-tag.risky{background:#fef9c3;color:#854d0e}
+
+.fe-disclaimer{font-size:0.72rem;color:var(--muted);background:var(--surface);border-radius:8px;padding:12px 16px;margin-top:8px;line-height:1.6}
+
+footer{
+  background: linear-gradient(135deg, #064E3B 0%, #0F766E 40%, #0891B2 100%);
+  color:rgba(255,255,255,0.65);
+  font-size:0.72rem;
+  line-height:1.7;
+  padding:0;
+  margin-top:48px;
+  position:relative;
+  overflow:hidden;
+}
+footer::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:3px;
+  background:linear-gradient(90deg,#5EEAD4 0%,#34D399 40%,#6EE7B7 80%,rgba(94,234,212,0) 100%);
+}
+footer::after{
+  content:'';
+  position:absolute;
+  width:300px;height:300px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(94,234,212,0.08) 0%,transparent 70%);
+  right:-60px;top:-60px;
+  pointer-events:none;
+}
+footer strong{color:#fff}
+.footer-inner{max-width:1020px;margin:0 auto;padding:32px 20px;position:relative;z-index:2}
+.footer-top{display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,0.1)}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:1.4rem;color:#fff;margin-bottom:8px;line-height:1}
+.footer-brand span{color:#5EEAD4}
+.footer-brand-sub{font-size:0.74rem;color:rgba(255,255,255,0.5);letter-spacing:0.04em}
+.footer-col-title{font-size:0.67rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#5EEAD4;margin-bottom:10px}
+.footer-links{display:flex;flex-direction:column;gap:6px}
+.footer-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.78rem;transition:color .2s}
+.footer-links a:hover{color:#5EEAD4}
+.footer-disclaimer{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.65}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:0.73rem;color:rgba(255,255,255,0.45)}
+.footer-copy strong{color:rgba(255,255,255,0.75);font-weight:600}
+.footer-pills{display:flex;gap:8px;flex-wrap:wrap}
+.footer-pill{font-size:0.67rem;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid rgba(94,234,212,0.25);color:rgba(94,234,212,0.75);letter-spacing:0.04em}
+
+@media(max-width:720px){
+  .fund-cards,.hero{grid-template-columns:1fr}
+  .tax-grid,.sug-grid{grid-template-columns:1fr}
+  .goal-fields{grid-template-columns:1fr 1fr}
+  .alloc-row{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr}
+  .header-right{display:none}
+  header h1{font-size:1.8rem}
+  .header-stats{gap:12px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-watermark">M4</div>
+  <div class="header-orb"></div>
+  <div class="header-orb2"></div>
+  <div class="header-orb3"></div>
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="header-eyebrow">Personal Finance Operating System</div>
+      <h1><span class="m4">M4</span><span class="money">Money</span> Framework</h1>
+      <div class="header-tagline">
+        <span>Mukesh Tripathy</span>
+        <span class="htag-sep">◆</span>
+        <span>Goal-Based SIP Planner</span>
+        <span class="htag-sep">◆</span>
+        <span>Multi-fund</span>
+        <span class="htag-sep">◆</span>
+        <span>Up to 120 months</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-badge">
+        <span class="hb-main">₹ Wealth Planner</span>
+        Goal · SIP · Gap · Funds
+      </div>
+      <div class="header-stats">
+        <div class="hstat"><div class="hst-val">4</div><div class="hst-lbl">Modules</div></div>
+        <div class="hstat"><div class="hst-val">8</div><div class="hst-lbl">Fund Segments</div></div>
+        <div class="hstat"><div class="hst-val">120</div><div class="hst-lbl">Month Horizon</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="header-accent"></div>
+</header>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('goals')">🎯 Goal Planner</button>
+  <button class="tab-btn" onclick="switchTab('planner')">📊 SIP Planner</button>
+  <button class="tab-btn" onclick="switchTab('gap')">🔍 Gap Analysis</button>
+  <button class="tab-btn" onclick="switchTab('funds')">📈 Fund Explorer</button>
+</div>
+<div class="container tab-content-wrap">
+
+<!-- ══════════════════════════════════════════ TAB 1: SIP PLANNER ══ -->
+<div class="tab-panel" id="tab-planner">
+
+  <p class="slbl">Fund Configuration</p>
+  <div class="fund-cards">
+    <!-- ARBITRAGE -->
+    <div class="fund-card" id="cardArb">
+      <div class="fund-card-header">
+        <span class="fname arb">Arbitrage Fund</span>
+        <label class="toggle"><input type="checkbox" id="togArb" checked><span class="slider-sw"></span></label>
+      </div>
+      <select class="fund-type-sel" id="selArb">
+        <option value="7">Arbitrage Fund (~7%)</option>
+        <option value="6.5">Conservative Arbitrage (~6.5%)</option>
+        <option value="7.5">Aggressive Arbitrage (~7.5%)</option>
+        <option value="custom">Custom Rate</option>
+      </select>
+      <div class="fund-row"><label>Monthly SIP &nbsp;<span id="sipArbVal" style="color:var(--arb)">₹70,000</span></label>
+        <input type="range" id="sipArb" min="5000" max="200000" step="5000" value="70000"></div>
+      <div class="fund-row"><label>Rate p.a. &nbsp;<span id="arbRateLbl" style="color:var(--arb)">7.00%</span></label>
+        <input type="range" id="rateArb" min="4" max="10" step="0.25" value="7"></div>
+      <div class="fund-row"><label>Duration &nbsp;<span id="arbMonLbl" style="color:var(--arb)">18 months</span></label>
+        <input type="range" id="monArb" min="6" max="120" step="6" value="18"></div>
+    </div>
+    <!-- EQUITY -->
+    <div class="fund-card" id="cardEq">
+      <div class="fund-card-header">
+        <span class="fname eq">Equity Fund</span>
+        <label class="toggle"><input type="checkbox" id="togEq" checked><span class="slider-sw"></span></label>
+      </div>
+      <select class="fund-type-sel" id="selEq">
+        <option value="13">Flexi-cap / Multi-cap (~13%)</option>
+        <option value="12">Large-cap Index (~12%)</option>
+        <option value="15">Mid-cap Fund (~15%)</option>
+        <option value="11">Balanced Advantage (~11%)</option>
+        <option value="custom">Custom Rate</option>
+      </select>
+      <div class="fund-row"><label>Monthly SIP &nbsp;<span id="sipEqVal" style="color:var(--eq)">₹70,000</span></label>
+        <input type="range" id="sipEq" min="5000" max="200000" step="5000" value="70000"></div>
+      <div class="fund-row"><label>Rate p.a. &nbsp;<span id="eqRateLbl" style="color:var(--eq)">13.00%</span></label>
+        <input type="range" id="rateEq" min="6" max="20" step="0.5" value="13"></div>
+      <div class="fund-row"><label>Duration &nbsp;<span id="eqMonLbl" style="color:var(--eq)">18 months</span></label>
+        <input type="range" id="monEq" min="6" max="120" step="6" value="18"></div>
+    </div>
+    <!-- SAVINGS -->
+    <div class="fund-card" id="cardSav">
+      <div class="fund-card-header">
+        <span class="fname sav">Bank Savings / FD</span>
+        <label class="toggle"><input type="checkbox" id="togSav" checked><span class="slider-sw"></span></label>
+      </div>
+      <select class="fund-type-sel" id="selSav">
+        <option value="3.5">Savings Account (~3.5%)</option>
+        <option value="7">FD 1-Year (~7%)</option>
+        <option value="7.25">FD 2-Year (~7.25%)</option>
+        <option value="8.05">Small Finance Bank FD (~8.05%)</option>
+        <option value="8.2">Post Office TD (~8.2%)</option>
+        <option value="custom">Custom Rate</option>
+      </select>
+      <div class="fund-row"><label>Monthly Amount &nbsp;<span id="sipSavVal" style="color:var(--sav)">₹70,000</span></label>
+        <input type="range" id="sipSav" min="5000" max="200000" step="5000" value="70000"></div>
+      <div class="fund-row"><label>Rate p.a. &nbsp;<span id="savRateLbl" style="color:var(--sav)">3.50%</span></label>
+        <input type="range" id="rateSav" min="2" max="10" step="0.25" value="3.5"></div>
+      <div class="fund-row"><label>Duration &nbsp;<span id="savMonLbl" style="color:var(--sav)">18 months</span></label>
+        <input type="range" id="monSav" min="6" max="120" step="6" value="18"></div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <p class="slbl">Projected Corpus</p>
+  <div class="hero">
+    <div class="hcard arb" id="hArb"><div class="lbl">Arbitrage Fund</div><div class="big" id="hArbVal">—</div><div class="inv">Invested: <span id="hArbInv">—</span></div><div class="badge" id="hArbBadge">—</div></div>
+    <div class="hcard eq"  id="hEq"><div class="lbl">Equity Fund</div><div class="big" id="hEqVal">—</div><div class="inv">Invested: <span id="hEqInv">—</span></div><div class="badge" id="hEqBadge">—</div></div>
+    <div class="hcard sav" id="hSav"><div class="lbl">Bank Savings/FD</div><div class="big" id="hSavVal">—</div><div class="inv">Invested: <span id="hSavInv">—</span></div><div class="badge" id="hSavBadge">—</div></div>
+    <div class="hcard tot"><div class="lbl">Combined Portfolio</div><div class="big" id="hTotVal">—</div><div class="inv">Total invested: <span id="hTotInv">—</span></div><div class="badge" id="hTotBadge">—</div></div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <p class="slbl" style="margin-bottom:16px">Corpus Composition</p>
+    <div class="prow" id="pArb"><div class="prow-hd"><span class="pname" style="color:var(--arb)">Arbitrage Fund</span><span class="pvals" id="pArbLbl">—</span></div><div class="bar-track"><div class="bar-fill bar-arb" id="bArb" style="width:0%"></div></div></div>
+    <div class="prow" id="pEq"><div class="prow-hd"><span class="pname" style="color:var(--eq)">Equity Fund</span><span class="pvals" id="pEqLbl">—</span></div><div class="bar-track"><div class="bar-fill bar-eq" id="bEq" style="width:0%"></div></div></div>
+    <div class="prow" id="pSav"><div class="prow-hd"><span class="pname" style="color:var(--sav)">Bank Savings/FD</span><span class="pvals" id="pSavLbl">—</span></div><div class="bar-track"><div class="bar-fill bar-sav" id="bSav" style="width:0%"></div></div></div>
+    <div class="prow"><div class="prow-hd"><span class="pname">Total Gain on Portfolio</span><span class="pvals" id="pGainLbl">—</span></div><div class="bar-track"><div class="bar-fill bar-tot" id="bGain" style="width:0%"></div></div></div>
+  </div>
+
+  <!-- TABLE -->
+  <p class="slbl">Period-wise Growth (Quarterly)</p>
+  <div class="tbl-wrap">
+    <table><thead><tr><th>Period</th><th>Arb Corpus</th><th>Equity Corpus</th><th>Savings Corpus</th><th>Combined</th><th>Gain</th></tr></thead>
+    <tbody id="tBody"></tbody></table>
+  </div>
+
+  <!-- TAX -->
+  <div class="tax-box">
+    <h3>Tax Snapshot</h3>
+    <div class="tax-grid">
+      <div class="ti"><div class="tl">Arbitrage Fund (&gt;12m)</div><div class="tv">LTCG @ 12.5% (equity-oriented)</div></div>
+      <div class="ti"><div class="tl">Equity Fund (&gt;12m)</div><div class="tv">LTCG @ 12.5%, ₹1.25L exempt/yr</div></div>
+      <div class="ti"><div class="tl">Bank FD / Savings</div><div class="tv">Interest taxed at income slab</div></div>
+      <div class="ti"><div class="tl">Arb post-tax gain (est.)</div><div class="tv" id="txArb">—</div></div>
+      <div class="ti"><div class="tl">Equity post-tax gain (est.)</div><div class="tv" id="txEq">—</div></div>
+      <div class="ti"><div class="tl">SIP LTCG note</div><div class="tv" style="font-weight:400;font-size:0.79rem;color:var(--muted)">Each instalment has its own 12m LTCG clock. Stagger redemptions across FY to use ₹1.25L exemption.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ TAB 2: GOAL PLANNER ══ -->
+<div class="tab-panel active" id="tab-goals">
+
+  <div class="goal-intro">
+    <h3>Goal-Based SIP Planning</h3>
+    <p>Define your financial goals below. The framework calculates the required monthly SIP for each goal and suggests an optimal allocation across Arbitrage, Equity, and Savings instruments — based on the goal's time horizon and risk profile.</p>
+  </div>
+
+  <!-- ADD GOAL BUTTONS -->
+  <div class="add-goal-row">
+    <button class="add-goal-btn" onclick="addGoal('home','🏠','Home / Property','Long-term')">+ 🏠 Home / Property</button>
+    <button class="add-goal-btn" onclick="addGoal('edu','🎓','Child Education','Long-term')">+ 🎓 Education Fund</button>
+    <button class="add-goal-btn" onclick="addGoal('retire','🌴','Retirement Corpus','Very Long-term')">+ 🌴 Retirement</button>
+    <button class="add-goal-btn" onclick="addGoal('car','🚗','Vehicle Purchase','Short-term')">+ 🚗 Vehicle</button>
+    <button class="add-goal-btn" onclick="addGoal('travel','✈️','Travel / Vacation','Short-term')">+ ✈️ Travel</button>
+    <button class="add-goal-btn" onclick="addGoal('emergency','🛡️','Emergency Fund','Short-term')">+ 🛡️ Emergency Fund</button>
+    <button class="add-goal-btn" onclick="addGoal('custom','💡','Custom Goal','Mid-term')">+ Custom Goal</button>
+  </div>
+
+  <div class="goal-list" id="goalList">
+    <!-- goals injected here -->
+  </div>
+
+  <!-- ALLOCATION SUGGESTION -->
+  <div id="allocSection" style="display:none">
+    <div class="suggestion-box">
+      <h3>💡 Optimal SIP Allocation Suggestion</h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:16px">Based on your goals, here is the recommended monthly SIP split across instruments — weighted by time horizon and risk profile of each goal.</p>
+      <div class="sug-grid" id="sugGrid"></div>
+      <div style="margin-top:14px;font-size:0.82rem;color:var(--muted)" id="sugNote"></div>
+      <button class="apply-btn" onclick="applyToPlanner()">→ Apply this allocation to SIP Planner</button>
+    </div>
+
+    <div class="alloc-box">
+      <h3>Goal-wise SIP Breakdown</h3>
+      <div class="sub">How your total required SIP is distributed across each goal</div>
+      <div class="alloc-total" id="allocTotal">Total Monthly SIP Required: —</div>
+      <div id="allocRows"></div>
+    </div>
+  </div>
+
+  <div id="goalEmptyState" style="text-align:center;padding:60px 20px;color:var(--muted)">
+    <div style="font-size:2.5rem;margin-bottom:12px">🎯</div>
+    <div style="font-size:1rem;font-weight:600;margin-bottom:6px">No goals added yet</div>
+    <div style="font-size:0.83rem">Click any goal type above to get started</div>
+  </div>
+
+</div><!-- end tab-goals -->
+
+<!-- ══════════════════════════════════════════ TAB 3: GAP ANALYSIS ══ -->
+<div class="tab-panel" id="tab-gap">
+
+  <div id="gapEmpty" class="gap-empty">
+    <div style="font-size:2.5rem;margin-bottom:12px">🔍</div>
+    <div style="font-size:1rem;font-weight:600;margin-bottom:8px">No Goals Defined Yet</div>
+    <div style="font-size:0.83rem;max-width:380px;margin:0 auto">Set up goals in the Goal Planner tab, apply the allocation to SIP Planner, then come back here to see the full gap analysis.</div>
+    <button class="rebal-btn" style="margin-top:20px;background:var(--red)" onclick="switchTabById('goals')">→ Go to Goal Planner</button>
+  </div>
+
+  <div id="gapContent" style="display:none">
+
+    <!-- STATUS BAR -->
+    <p class="slbl">Portfolio vs Recommended — Snapshot</p>
+    <div class="gap-status-bar">
+      <div class="gsb-card info"><div class="gl">Recommended Total SIP</div><div class="gv" id="gRec">—</div><div class="gs">From goal planner</div></div>
+      <div class="gsb-card" id="gActualCard"><div class="gl">Your Current SIP</div><div class="gv" id="gActual">—</div><div class="gs">From SIP planner</div></div>
+      <div class="gsb-card" id="gDeltaCard"><div class="gl">Monthly Gap / Surplus</div><div class="gv" id="gDelta">—</div><div class="gs" id="gDeltaSub">vs recommended</div></div>
+      <div class="gsb-card" id="gExtraCard"><div class="gl">Extra Corpus at Maturity</div><div class="gv" id="gExtra">—</div><div class="gs" id="gExtraSub">vs recommended allocation</div></div>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <p class="slbl">Fund-wise Allocation Comparison</p>
+    <div class="gap-table-wrap">
+      <table class="gap-table">
+        <thead><tr>
+          <th>Instrument</th>
+          <th>Recommended SIP</th>
+          <th>Your Current SIP</th>
+          <th>Monthly Gap</th>
+          <th>Recommended %</th>
+          <th>Actual %</th>
+          <th>Corpus Gap at Maturity</th>
+          <th>Status</th>
+        </tr></thead>
+        <tbody id="gapTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- VISUAL DOUBLE BAR -->
+    <div class="gap-bar-wrap">
+      <h3>Allocation: Recommended vs Actual</h3>
+      <div class="sub">Width represents share of total monthly SIP. Green = recommended, coloured = actual.</div>
+      <div id="compareBarRows"></div>
+    </div>
+
+    <!-- EXTRA INCOME SECTION -->
+    <div class="extra-income-box" id="extraIncomeBox">
+      <h3 id="eiHeadline">—</h3>
+      <div class="sub" id="eiSubline">Compared to the goal-recommended allocation at same total investment</div>
+      <div class="ei-grid" id="eiGrid"></div>
+    </div>
+
+    <!-- INSIGHTS -->
+    <div class="insight-box">
+      <h3>🔎 M4Money Insights</h3>
+      <div class="insight-list" id="insightList"></div>
+      <button class="rebal-btn" onclick="applyToPlanner()">⚡ Rebalance to Recommended</button>
+      <button class="rebal-btn" style="background:var(--arb)" onclick="switchTabById('planner')">→ Back to SIP Planner</button>
+    </div>
+
+  </div>
+</div><!-- end tab-gap -->
+
+<!-- ══════════════════════════════════════════ TAB 4: FUND EXPLORER ══ -->
+<div class="tab-panel" id="tab-funds">
+
+  <div class="fe-intro">
+    <div class="fe-intro-text">
+      <h3>📈 Fund Explorer — Top Performers by Segment</h3>
+      <p>Curated top funds per category with 1Y / 3Y / 5Y / 10Y returns. Filter by segment, sort by period. Live rankings link to Value Research for always-fresh data.</p>
+    </div>
+    <div class="fe-updated">Data as of Dec 2024 &nbsp;·&nbsp; CAGR returns</div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="fe-filters">
+    <button class="fe-filter-btn active" onclick="feFilter('all',this)">All Segments</button>
+    <button class="fe-filter-btn" onclick="feFilter('largecap',this)">Large Cap</button>
+    <button class="fe-filter-btn" onclick="feFilter('flexicap',this)">Flexi Cap</button>
+    <button class="fe-filter-btn" onclick="feFilter('midcap',this)">Mid Cap</button>
+    <button class="fe-filter-btn" onclick="feFilter('smallcap',this)">Small Cap</button>
+    <button class="fe-filter-btn" onclick="feFilter('arbitrage',this)">Arbitrage</button>
+    <button class="fe-filter-btn" onclick="feFilter('hybrid',this)">Hybrid</button>
+    <button class="fe-filter-btn" onclick="feFilter('contra',this)">Contra / Value</button>
+    <button class="fe-filter-btn" onclick="feFilter('debt',this)">Debt / FD Alt</button>
+    <div class="fe-period-wrap">
+      <button class="fe-period-btn" onclick="fePeriod('1y',this)">1Y</button>
+      <button class="fe-period-btn active" onclick="fePeriod('3y',this)">3Y</button>
+      <button class="fe-period-btn" onclick="fePeriod('5y',this)">5Y</button>
+      <button class="fe-period-btn" onclick="fePeriod('10y',this)">10Y</button>
+    </div>
+  </div>
+
+  <div id="feSegments"></div>
+
+  <div class="fe-disclaimer">
+    ⚠️ <strong>Disclaimer:</strong> Returns shown are historical CAGR as of Dec 2024 sourced from public disclosures (AMFI / Value Research). Past performance does not guarantee future returns. Direct plan returns shown. For latest NAV and returns, use the live links. This is not investment advice — consult your financial advisor before investing. &nbsp;— M4Money Framework · Mukesh Tripathy
+  </div>
+
+</div><!-- end tab-funds -->
+
+</div><!-- end tab-content-wrap -->
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">M4<span>Money</span><br>Framework</div>
+        <div class="footer-brand-sub">Personal Finance OS</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Modules</div>
+        <div class="footer-links">
+          <span>🎯 Goal Planner</span>
+          <span>📊 SIP Planner</span>
+          <span>🔍 Gap Analysis</span>
+          <span>📈 Fund Explorer</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Disclaimer</div>
+        <div class="footer-disclaimer">Returns shown are illustrative and historical. Not investment advice. Tax treatment per Finance Act 2024. <strong>Consult your SEBI-registered financial advisor and CA</strong> before making investment decisions. Fund data as of Dec 2024.</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 <strong>Mukesh Tripathy</strong>. All Rights Reserved. &nbsp;·&nbsp; M4Money Framework is a personal financial planning tool.</div>
+      <div class="footer-pills">
+        <span class="footer-pill">SIP Calculator</span>
+        <span class="footer-pill">Goal Planner</span>
+        <span class="footer-pill">Tax Optimised</span>
+        <span class="footer-pill">Made in India 🇮🇳</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</div><!-- container -->
+
+<script>
+// ─────────────────────────────── UTILITIES ───────────────────────────────
+const fmt  = n => '₹' + Math.round(n).toLocaleString('en-IN');
+const fmtG = n => (n >= 0 ? '+' : '') + fmt(n);
+const fmtP = (g, b) => b > 0 ? ((g >= 0 ? '+' : '') + (g/b*100).toFixed(1) + '%') : '—';
+const fmtCr = n => {
+  const abs = Math.abs(n);
+  const sign = n < 0 ? '-' : '';
+  if (abs >= 1e7) return sign + (abs/1e7).toFixed(2) + ' Cr';
+  if (abs >= 1e5) return sign + (abs/1e5).toFixed(2) + ' L';
+  return fmt(n);
+};
+const fmtCrGap = n => {
+  const abs = Math.abs(n);
+  const sign = n >= 0 ? '+' : '-';
+  if (abs >= 1e7) return sign + (abs/1e7).toFixed(2) + ' Cr';
+  if (abs >= 1e5) return sign + (abs/1e5).toFixed(2) + ' L';
+  if (abs >= 1000) return (n >= 0 ? '+' : '') + fmt(n);
+  return (n >= 0 ? '+' : '') + fmt(n);
+};
+
+function sipCorpus(rate, sip, n) {
+  const r = rate / 100 / 12;
+  if (r === 0) return sip * n;
+  return sip * (Math.pow(1+r, n) - 1) / r * (1+r);
+}
+
+// Required monthly SIP to reach target corpus in n months at given rate
+function requiredSIP(rate, target, n) {
+  const r = rate / 100 / 12;
+  if (r === 0) return target / n;
+  return target * r / ((Math.pow(1+r, n) - 1) * (1+r));
+}
+
+function monthLabel(offset) {
+  const d = new Date(2026, 5, 1);
+  d.setMonth(d.getMonth() + offset - 1);
+  return d.toLocaleString('en-IN', { month: 'short', year: 'numeric' });
+}
+
+// ─────────────────────────────── TABS ───────────────────────────────
+function switchTab(id) {
+  switchTabById(id);
+}
+
+// ─────────────────────────────── SIP PLANNER ───────────────────────────────
+function getState(id) {
+  return {
+    tog:  document.getElementById('tog' + id).checked,
+    sip:  +document.getElementById('sip' + id).value,
+    rate: +document.getElementById('rate' + id).value,
+    mon:  +document.getElementById('mon' + id).value
+  };
+}
+
+function bindSelect(id) {
+  document.getElementById('sel' + id).addEventListener('change', function() {
+    if (this.value !== 'custom') { document.getElementById('rate' + id).value = this.value; calc(); }
+  });
+}
+function bindToggle(id) {
+  document.getElementById('tog' + id).addEventListener('change', function() {
+    document.getElementById('card' + id).classList.toggle('disabled', !this.checked);
+    document.getElementById('h' + id).classList.toggle('card-disabled', !this.checked);
+    document.getElementById('p' + id).style.opacity = this.checked ? '1' : '0.3';
+    calc();
+  });
+}
+
+function calc() {
+  const A = getState('Arb'), E = getState('Eq'), S = getState('Sav');
+  const ids = ['Arb','Eq','Sav'];
+  const states = [A, E, S];
+  const colors = ['var(--arb)','var(--eq)','var(--sav)'];
+  const sipIds = ['sipArb','sipEq','sipSav'];
+  const rateIds = ['rateArb','rateEq','rateSav'];
+  const monIds = ['monArb','monEq','monSav'];
+  const lblSip = ['sipArbVal','sipEqVal','sipSavVal'];
+  const lblRate = ['arbRateLbl','eqRateLbl','savRateLbl'];
+  const lblMon = ['arbMonLbl','eqMonLbl','savMonLbl'];
+
+  states.forEach((st, i) => {
+    document.getElementById(lblSip[i]).textContent = fmt(st.sip);
+    document.getElementById(lblRate[i]).textContent = st.rate.toFixed(2) + '%';
+    document.getElementById(lblMon[i]).textContent = st.mon + ' months';
+  });
+
+  const aFin = A.tog ? sipCorpus(A.rate, A.sip, A.mon) : 0;
+  const eFin = E.tog ? sipCorpus(E.rate, E.sip, E.mon) : 0;
+  const sFin = S.tog ? sipCorpus(S.rate, S.sip, S.mon) : 0;
+  const aInv = A.tog ? A.sip*A.mon : 0, eInv = E.tog ? E.sip*E.mon : 0, sInv = S.tog ? S.sip*S.mon : 0;
+  const aG = aFin-aInv, eG = eFin-eInv, sG = sFin-sInv;
+  const totFin = aFin+eFin+sFin, totInv = aInv+eInv+sInv, totGain = aG+eG+sG;
+
+  const vals = [aFin, eFin, sFin], invs = [aInv, eInv, sInv], gains = [aG, eG, sG];
+  const hIds = ['hArb','hEq','hSav'], hvIds = ['hArbVal','hEqVal','hSavVal'],
+        hiIds = ['hArbInv','hEqInv','hSavInv'], hbIds = ['hArbBadge','hEqBadge','hSavBadge'];
+
+  states.forEach((st, i) => {
+    document.getElementById(hvIds[i]).textContent = st.tog ? fmt(vals[i]) : '—';
+    document.getElementById(hiIds[i]).textContent = st.tog ? fmt(invs[i]) : '—';
+    document.getElementById(hbIds[i]).textContent = st.tog ? fmtG(gains[i]) + ' (' + fmtP(gains[i], invs[i]) + ')' : 'Off';
+  });
+  document.getElementById('hTotVal').textContent = fmt(totFin);
+  document.getElementById('hTotInv').textContent = fmt(totInv);
+  document.getElementById('hTotBadge').textContent = fmtG(totGain) + ' (' + fmtP(totGain, totInv) + ')';
+
+  if (totFin > 0) {
+    document.getElementById('bArb').style.width = (aFin/totFin*100)+'%';
+    document.getElementById('bEq').style.width  = (eFin/totFin*100)+'%';
+    document.getElementById('bSav').style.width = (sFin/totFin*100)+'%';
+    document.getElementById('bGain').style.width = Math.min(100, totGain/totFin*100)+'%';
+  }
+  document.getElementById('pArbLbl').textContent = A.tog ? fmt(aFin)+' · '+(aFin/totFin*100).toFixed(1)+'%' : 'Inactive';
+  document.getElementById('pEqLbl').textContent  = E.tog ? fmt(eFin)+' · '+(eFin/totFin*100).toFixed(1)+'%' : 'Inactive';
+  document.getElementById('pSavLbl').textContent = S.tog ? fmt(sFin)+' · '+(sFin/totFin*100).toFixed(1)+'%' : 'Inactive';
+  document.getElementById('pGainLbl').textContent = fmtG(totGain)+' · '+fmtP(totGain, totInv);
+
+  const TAX=0.125, EX=125000;
+  const aTax = A.tog ? Math.max(0,aG-EX)*TAX : 0, eTax = E.tog ? Math.max(0,eG-EX)*TAX : 0;
+  document.getElementById('txArb').textContent = A.tog ? fmt(aG-aTax)+' net (tax ~'+fmt(aTax)+')' : '—';
+  document.getElementById('txEq').textContent  = E.tog ? fmt(eG-eTax)+' net (tax ~'+fmt(eTax)+')' : '—';
+
+  // Table
+  const maxMon = Math.max(A.tog?A.mon:0, E.tog?E.mon:0, S.tog?S.mon:0);
+  const tbody = document.getElementById('tBody'); tbody.innerHTML = '';
+  let prevYear = null;
+  for (let m=1; m<=maxMon; m++) {
+    const d = new Date(2026, 5+m-1, 1), yr = d.getFullYear();
+    if (yr !== prevYear && m > 1) {
+      const sep = document.createElement('tr'); sep.className = 'yr-sep';
+      sep.innerHTML = `<td colspan="6">── ${yr} ──</td>`; tbody.appendChild(sep);
+    }
+    prevYear = yr;
+    const isQ = (m%3===0), isFA=A.tog&&m===A.mon, isFE=E.tog&&m===E.mon, isFS=S.tog&&m===S.mon;
+    if (!isQ && !isFA && !isFE && !isFS) continue;
+    const aV = A.tog && m<=A.mon ? sipCorpus(A.rate,A.sip,m) : (A.tog?aFin:null);
+    const eV = E.tog && m<=E.mon ? sipCorpus(E.rate,E.sip,m) : (E.tog?eFin:null);
+    const sV = S.tog && m<=S.mon ? sipCorpus(S.rate,S.sip,m) : (S.tog?sFin:null);
+    const totV = (A.tog?aV:0)+(E.tog?eV:0)+(S.tog?sV:0);
+    const invNow = (A.tog&&m<=A.mon?A.sip*m:aInv)+(E.tog&&m<=E.mon?E.sip*m:eInv)+(S.tog&&m<=S.mon?S.sip*m:sInv);
+    const gain = totV - invNow;
+    const tr = document.createElement('tr');
+    if (m===maxMon) tr.classList.add('highlight');
+    tr.innerHTML = `<td><strong>${monthLabel(m)}</strong>${isFA||isFE||isFS?'<span style="font-size:.7rem;color:var(--red);margin-left:4px">✓</span>':''}</td>
+      <td class="av">${A.tog?fmt(aV):'—'}</td><td class="ev">${E.tog?fmt(eV):'—'}</td><td class="sv">${S.tog?fmt(sV):'—'}</td>
+      <td><strong>${fmt(totV)}</strong></td>
+      <td style="color:var(--green);font-weight:500">${fmtG(gain)} <span style="color:var(--muted);font-weight:400;font-size:.74rem">(${fmtP(gain,invNow)})</span></td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+['Arb','Eq','Sav'].forEach(id => {
+  bindSelect(id); bindToggle(id);
+  ['sip','rate','mon'].forEach(c => document.getElementById(c+id).addEventListener('input', calc));
+});
+calc();
+
+// ─────────────────────────────── GOAL PLANNER ───────────────────────────────
+let goals = [];
+let gid = 0;
+
+// Horizon-based allocation weights: [arb%, eq%, sav%]
+// Logic:
+//  • Savings/FD: Only where instant liquidity is needed (< 12m). Interest taxed at income slab — worst tax.
+//  • Arbitrage: ~7% p.a., taxed as EQUITY (LTCG 12.5% after 12 months). Strictly beats FD post-tax
+//    for any investor in 20%+ slab. Gets the bulk of non-equity share whenever holding > 12 months.
+//  • Equity: Scales sharply with horizon. Compounding advantage dominant beyond 3 years.
+function getAllocWeights(months) {
+  //                                 [arb%,  eq%,  sav%]
+  if (months <= 6)   return [0.10, 0.05, 0.85]; // <6m: need instant liquidity — savings only
+  if (months <= 12)  return [0.40, 0.10, 0.50]; // 6-12m: arb LTCG clock hasn't matured, share with savings
+  if (months <= 18)  return [0.65, 0.25, 0.10]; // 12-18m: arb LTCG kicks in — displace savings sharply
+  if (months <= 36)  return [0.50, 0.45, 0.05]; // 1.5-3yr: arb + equity near equal, minimal savings
+  if (months <= 60)  return [0.25, 0.70, 0.05]; // 3-5yr: equity dominant, arb as stability layer
+  if (months <= 84)  return [0.15, 0.82, 0.03]; // 5-7yr: mostly equity, arb as 15% cushion
+  return [0.08, 0.90, 0.02];                     // 7yr+: near-full equity, token arb/savings
+}
+
+// Blended rate for each instrument used in SIP calculation
+const RATES = { arb: 7, eq: 13, sav: 7 }; // FD rate for savings
+
+function goalBlendedRate(months) {
+  const [aw, ew, sw] = getAllocWeights(months);
+  return aw*RATES.arb + ew*RATES.eq + sw*RATES.sav;
+}
+
+const ICONS = { home:'🏠', edu:'🎓', retire:'🌴', car:'🚗', travel:'✈️', emergency:'🛡️', custom:'💡' };
+const COLORS = { home:'#7C3AED', edu:'#059669', retire:'#B45309', car:'#2563EB', travel:'#0891B2', emergency:'#C41E3A', custom:'#6B6B6B' };
+const BG_COLORS = { home:'#F5F3FF', edu:'#ECFDF5', retire:'#FFFBEB', car:'#EFF6FF', travel:'#F0F9FF', emergency:'#FFF1F2', custom:'#F5F4F0' };
+
+function addGoal(type, icon, name, horizon) {
+  const id = ++gid;
+  const defaultMonths = { home:120, edu:84, retire:120, car:24, travel:18, emergency:12, custom:36 };
+  goals.push({ id, type, name, icon, target: 2500000, months: defaultMonths[type]||36 });
+  renderGoals();
+}
+
+function removeGoal(id) {
+  goals = goals.filter(g => g.id !== id);
+  renderGoals();
+}
+
+function renderGoals() {
+  const list = document.getElementById('goalList');
+  const empty = document.getElementById('goalEmptyState');
+  const allocSec = document.getElementById('allocSection');
+  list.innerHTML = '';
+  empty.style.display = goals.length ? 'none' : 'block';
+  allocSec.style.display = goals.length ? 'block' : 'none';
+
+  goals.forEach(g => {
+    const blended = goalBlendedRate(g.months);
+    const sipReq = requiredSIP(blended, g.target, g.months);
+    const [aw, ew, sw] = getAllocWeights(g.months);
+    const sipArb = sipReq * aw, sipEq = sipReq * ew, sipSav = sipReq * sw;
+    const color = COLORS[g.type] || '#6B6B6B';
+    const bg = BG_COLORS[g.type] || '#F5F4F0';
+
+    const card = document.createElement('div');
+    card.className = 'goal-card';
+    card.dataset.id = g.id;
+    card.innerHTML = `
+      <div class="goal-card-header">
+        <div class="goal-icon" style="background:${bg}">${g.icon}</div>
+        <div><div class="gtitle">${g.name}</div><div class="gcat">${g.months <= 24 ? 'Short-term' : g.months <= 60 ? 'Mid-term' : 'Long-term'} · ${g.months} months · Blended rate ${blended.toFixed(1)}% p.a.</div></div>
+      </div>
+      <button class="goal-remove" onclick="removeGoal(${g.id})">✕</button>
+      <div class="goal-fields">
+        <div class="gf"><label>Goal Name</label><input type="text" value="${g.name}" onchange="updateGoal(${g.id},'name',this.value)"></div>
+        <div class="gf"><label>Target Amount (₹)</label><input type="number" value="${g.target}" step="100000" min="100000" onchange="updateGoal(${g.id},'target',+this.value)"></div>
+        <div class="gf"><label>Time Horizon (months)</label><input type="range" min="6" max="120" step="6" value="${g.months}" oninput="updateGoal(${g.id},'months',+this.value);this.parentElement.querySelector('.rv').textContent='${g.months} mo'">
+          <div class="rv" id="monLbl_${g.id}">${g.months} mo</div></div>
+        <div class="gf"><label>Goal Category</label>
+          <select onchange="updateGoalType(${g.id},this.value)">
+            ${['home','edu','retire','car','travel','emergency','custom'].map(t=>`<option value="${t}" ${t===g.type?'selected':''}>${ICONS[t]} ${['Home/Property','Education','Retirement','Vehicle','Travel','Emergency','Custom'][['home','edu','retire','car','travel','emergency','custom'].indexOf(t)]}</option>`).join('')}
+          </select></div>
+      </div>
+      <div class="goal-result">
+        <div class="gr-item"><div class="grl">Required Monthly SIP</div><div class="grv" style="color:${color}">${fmt(sipReq)}<small style="font-size:.75rem;font-family:'DM Sans',sans-serif;color:var(--muted)">/mo</small></div></div>
+        <div class="gr-item"><div class="grl">Allocation Split</div><div class="grv" style="font-size:.9rem;color:var(--muted)"><span style="color:var(--arb)">Arb ${(aw*100).toFixed(0)}%</span> · <span style="color:var(--eq)">Eq ${(ew*100).toFixed(0)}%</span> · <span style="color:var(--sav)">Sav ${(sw*100).toFixed(0)}%</span></div></div>
+        <div class="gr-item"><div class="grl">Total Investment</div><div class="grv">${fmtCr(sipReq*g.months)}</div></div>
+      </div>`;
+    // Fix slider label binding after insert
+    list.appendChild(card);
+    const slider = card.querySelector('input[type=range]');
+    const lbl = card.querySelector(`#monLbl_${g.id}`);
+    slider.addEventListener('input', () => { lbl.textContent = slider.value + ' mo'; });
+  });
+
+  renderAllocation();
+}
+
+function updateGoal(id, field, val) {
+  const g = goals.find(x => x.id===id);
+  if (g) { g[field] = val; renderGoals(); }
+}
+function updateGoalType(id, type) {
+  const g = goals.find(x => x.id===id);
+  if (g) { g.type = type; g.icon = ICONS[type]; renderGoals(); }
+}
+
+function renderAllocation() {
+  if (!goals.length) return;
+  const totalSIP = goals.reduce((s, g) => {
+    const blended = goalBlendedRate(g.months);
+    return s + requiredSIP(blended, g.target, g.months);
+  }, 0);
+
+  // Weighted allocation across funds
+  let arbTotal=0, eqTotal=0, savTotal=0;
+  goals.forEach(g => {
+    const blended = goalBlendedRate(g.months);
+    const sip = requiredSIP(blended, g.target, g.months);
+    const [aw,ew,sw] = getAllocWeights(g.months);
+    arbTotal += sip*aw; eqTotal += sip*ew; savTotal += sip*sw;
+  });
+
+  document.getElementById('allocTotal').textContent = 'Total Monthly SIP Required: ' + fmt(totalSIP) + '/month';
+
+  // Suggestion cards
+  const sugGrid = document.getElementById('sugGrid');
+  sugGrid.innerHTML = `
+    <div class="sug-card">
+      <div class="sc-name" style="color:var(--arb)">🔵 Arbitrage Fund</div>
+      <div class="sc-amt">${fmt(arbTotal)}<small style="font-size:.8rem;font-family:'DM Sans',sans-serif;color:var(--muted)">/mo</small></div>
+      <div class="sc-note">${(arbTotal/totalSIP*100).toFixed(0)}% of total · ~7% p.a. · LTCG @ 12.5% after 12m · Beats FD post-tax at any 20%+ slab · Preferred over savings for goals > 12 months</div>
+    </div>
+    <div class="sug-card">
+      <div class="sc-name" style="color:var(--eq)">🔴 Equity Fund</div>
+      <div class="sc-amt">${fmt(eqTotal)}<small style="font-size:.8rem;font-family:'DM Sans',sans-serif;color:var(--muted)">/mo</small></div>
+      <div class="sc-note">${(eqTotal/totalSIP*100).toFixed(0)}% of total · ~13% p.a. · Compounding advantage for 3yr+ goals · LTCG @ 12.5% above ₹1.25L</div>
+    </div>
+    <div class="sug-card">
+      <div class="sc-name" style="color:var(--sav)">🟢 Bank FD / Savings</div>
+      <div class="sc-amt">${fmt(savTotal)}<small style="font-size:.8rem;font-family:'DM Sans',sans-serif;color:var(--muted)">/mo</small></div>
+      <div class="sc-note">${(savTotal/totalSIP*100).toFixed(0)}% of total · Only for goals < 12 months or emergency liquidity · Interest taxed at slab rate — minimised intentionally</div>
+    </div>`;
+
+  document.getElementById('sugNote').textContent =
+    `Allocation logic: Savings/FD is minimised — interest is taxed at your income slab (worst tax treatment). Arbitrage gets priority over savings for any goal > 12 months as it delivers similar returns (~7%) but is taxed as equity (LTCG 12.5%) — significantly better post-tax. Equity dominates beyond 3 years where compounding creates the largest advantage.`;
+
+  // Goal-wise rows
+  const rows = document.getElementById('allocRows'); rows.innerHTML = '';
+  goals.forEach(g => {
+    const blended = goalBlendedRate(g.months);
+    const sip = requiredSIP(blended, g.target, g.months);
+    const pct = (sip/totalSIP*100).toFixed(1);
+    const color = COLORS[g.type]||'#6B6B6B';
+    const row = document.createElement('div');
+    row.className = 'alloc-row';
+    row.innerHTML = `
+      <div class="al-name">${g.icon} ${g.name}</div>
+      <div><div class="al-bar-track"><div class="al-bar-fill" style="width:${pct}%;background:${color}"></div></div></div>
+      <div class="al-amt" style="color:${color}">${fmt(sip)}<small style="font-size:.72rem;font-family:'DM Sans',sans-serif;color:var(--muted)">/mo</small></div>
+      <div class="al-pct">${pct}%</div>`;
+    rows.appendChild(row);
+  });
+}
+
+function applyToPlanner() {
+  // Calculate suggested totals and apply to planner sliders
+  let arbTotal=0, eqTotal=0, savTotal=0;
+  goals.forEach(g => {
+    const blended = goalBlendedRate(g.months);
+    const sip = requiredSIP(blended, g.target, g.months);
+    const [aw,ew,sw] = getAllocWeights(g.months);
+    arbTotal += sip*aw; eqTotal += sip*ew; savTotal += sip*sw;
+  });
+  const snap = v => Math.max(5000, Math.round(v/5000)*5000);
+  document.getElementById('sipArb').value = Math.min(200000, snap(arbTotal));
+  document.getElementById('sipEq').value  = Math.min(200000, snap(eqTotal));
+  document.getElementById('sipSav').value = Math.min(200000, snap(savTotal));
+  const maxMon = Math.max(...goals.map(g=>g.months));
+  document.getElementById('monArb').value = Math.min(120, maxMon);
+  document.getElementById('monEq').value  = Math.min(120, maxMon);
+  document.getElementById('monSav').value = Math.min(120, maxMon);
+  calc();
+  switchTabById('planner');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ─────────────────────────────── TAB HELPER ───────────────────────────────
+function switchTabById(id) {
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  const idx = {'goals':0,'planner':1,'gap':2,'funds':3}[id]||0;
+  document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+  if (id === 'gap') renderGapAnalysis();
+  if (id === 'funds') renderFundExplorer();
+}
+
+// ─────────────────────────────── GAP ANALYSIS ───────────────────────────────
+function getRecommended() {
+  // Aggregate recommended SIP per fund from goal planner
+  let recArb=0, recEq=0, recSav=0;
+  goals.forEach(g => {
+    const blended = goalBlendedRate(g.months);
+    const sip = requiredSIP(blended, g.target, g.months);
+    const [aw,ew,sw] = getAllocWeights(g.months);
+    recArb += sip*aw; recEq += sip*ew; recSav += sip*sw;
+  });
+  return { recArb, recEq, recSav, recTotal: recArb+recEq+recSav };
+}
+
+function renderGapAnalysis() {
+  const gapContent = document.getElementById('gapContent');
+  const gapEmpty   = document.getElementById('gapEmpty');
+
+  if (!goals.length) {
+    gapEmpty.style.display = 'block';
+    gapContent.style.display = 'none';
+    return;
+  }
+  gapEmpty.style.display = 'none';
+  gapContent.style.display = 'block';
+
+  const { recArb, recEq, recSav, recTotal } = getRecommended();
+
+  // Actual from SIP planner
+  const A = getState('Arb'), E = getState('Eq'), S = getState('Sav');
+  const actArb = A.tog ? A.sip : 0;
+  const actEq  = E.tog ? E.sip : 0;
+  const actSav = S.tog ? S.sip : 0;
+  const actTotal = actArb + actEq + actSav;
+
+  // Use max horizon across goals for corpus comparison
+  const maxMon = Math.max(...goals.map(g=>g.months));
+  const arbMon = A.tog ? A.mon : maxMon;
+  const eqMon  = E.tog ? E.mon : maxMon;
+  const savMon = S.tog ? S.mon : maxMon;
+
+  // Corpus at maturity
+  const recCorpusArb = sipCorpus(RATES.arb, recArb, maxMon);
+  const recCorpusEq  = sipCorpus(RATES.eq,  recEq,  maxMon);
+  const recCorpusSav = sipCorpus(RATES.sav,  recSav, maxMon);
+  const recCorpusTotal = recCorpusArb + recCorpusEq + recCorpusSav;
+
+  const actCorpusArb = A.tog ? sipCorpus(A.rate, actArb, arbMon) : 0;
+  const actCorpusEq  = E.tog ? sipCorpus(E.rate, actEq,  eqMon)  : 0;
+  const actCorpusSav = S.tog ? sipCorpus(S.rate, actSav, savMon) : 0;
+  const actCorpusTotal = actCorpusArb + actCorpusEq + actCorpusSav;
+
+  const deltaTotal   = actTotal - recTotal;
+  const corpusDelta  = actCorpusTotal - recCorpusTotal;
+
+  // ── STATUS BAR ──
+  document.getElementById('gRec').textContent    = fmt(recTotal);
+  document.getElementById('gActual').textContent = fmt(actTotal);
+
+  const deltaEl = document.getElementById('gDelta');
+  const deltaCard = document.getElementById('gActualCard');
+  deltaEl.textContent = (deltaTotal >= 0 ? '+' : '') + fmt(deltaTotal);
+  document.getElementById('gDeltaSub').textContent = deltaTotal >= 0 ? 'surplus vs recommended' : 'shortfall vs recommended';
+  document.getElementById('gDeltaCard').className = 'gsb-card ' + (deltaTotal >= 0 ? 'positive' : 'negative');
+  document.getElementById('gActualCard').className = 'gsb-card ' + (Math.abs(deltaTotal)/recTotal < 0.1 ? 'positive' : deltaTotal < 0 ? 'negative' : 'positive');
+
+  const extraEl = document.getElementById('gExtra');
+  extraEl.textContent = fmtCrGap(corpusDelta);
+  document.getElementById('gExtraSub').textContent = corpusDelta >= 0 ? 'extra corpus vs recommended' : 'corpus shortfall vs recommended';
+  document.getElementById('gExtraCard').className = 'gsb-card ' + (corpusDelta >= 0 ? 'positive' : 'negative');
+
+  // ── COMPARISON TABLE ──
+  const funds = [
+    { name:'Arbitrage Fund', color:'var(--arb)', rec:recArb, act:actArb, recC:recCorpusArb, actC:actCorpusArb, recRate:RATES.arb, actRate:A.rate, mon:maxMon },
+    { name:'Equity Fund',    color:'var(--eq)',  rec:recEq,  act:actEq,  recC:recCorpusEq,  actC:actCorpusEq,  recRate:RATES.eq,  actRate:E.rate, mon:maxMon },
+    { name:'Bank Savings/FD',color:'var(--sav)', rec:recSav, act:actSav, recC:recCorpusSav, actC:actCorpusSav, recRate:RATES.sav,  actRate:S.rate, mon:maxMon },
+  ];
+
+  const tbody = document.getElementById('gapTableBody');
+  tbody.innerHTML = '';
+  funds.forEach(f => {
+    const gap = f.act - f.rec;
+    const recPct = recTotal > 0 ? (f.rec/recTotal*100).toFixed(1)+'%' : '—';
+    const actPct = actTotal > 0 ? (f.act/actTotal*100).toFixed(1)+'%' : '—';
+    const cGap = f.actC - f.recC;
+    const status = Math.abs(gap) < 500 ? 'On track' : gap > 0 ? 'Over-allocated' : 'Under-allocated';
+    const statusCls = Math.abs(gap) < 500 ? 'gap-ok' : gap > 0 ? 'gap-up' : 'gap-dn';
+    const indCls = Math.abs(gap) < 500 ? 'ind-ok' : gap > 0 ? 'ind-up' : 'ind-dn';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="font-weight:600;color:${f.color}">${f.name}</td>
+      <td>${fmt(f.rec)}<small style="color:var(--muted);font-size:.75rem">/mo</small></td>
+      <td>${fmt(f.act)}<small style="color:var(--muted);font-size:.75rem">/mo</small></td>
+      <td class="${gap>=0?'gap-up':'gap-dn'}">${gap>=0?'+':''}${fmt(gap)}</td>
+      <td style="color:var(--muted)">${recPct}</td>
+      <td style="color:var(--muted)">${actPct}</td>
+      <td class="${cGap>=0?'gap-up':'gap-dn'}">${fmtCrGap(cGap)}</td>
+      <td><span class="indicator ${indCls}"></span><span class="${statusCls}">${status}</span></td>`;
+    tbody.appendChild(tr);
+  });
+  // Totals row
+  const totRow = document.createElement('tr');
+  totRow.style.background = 'var(--surface)';
+  totRow.style.fontWeight = '600';
+  const totGap = actTotal - recTotal;
+  const totCorpusGap = actCorpusTotal - recCorpusTotal;
+  totRow.innerHTML = `
+    <td>Total</td>
+    <td>${fmt(recTotal)}/mo</td>
+    <td>${fmt(actTotal)}/mo</td>
+    <td class="${totGap>=0?'gap-up':'gap-dn'}">${totGap>=0?'+':''}${fmt(totGap)}</td>
+    <td>100%</td><td>100%</td>
+    <td class="${totCorpusGap>=0?'gap-up':'gap-dn'}">${fmtCrGap(totCorpusGap)}</td>
+    <td>—</td>`;
+  tbody.appendChild(totRow);
+
+  // ── DOUBLE BAR CHART ──
+  const barContainer = document.getElementById('compareBarRows');
+  barContainer.innerHTML = '';
+  const barMax = Math.max(recTotal, actTotal);
+  funds.forEach(f => {
+    const recW = barMax > 0 ? (f.rec/barMax*100).toFixed(1) : 0;
+    const actW = barMax > 0 ? (f.act/barMax*100).toFixed(1) : 0;
+    const div = document.createElement('div');
+    div.className = 'compare-row';
+    div.innerHTML = `
+      <div class="cr-label" style="color:${f.color}">${f.name}</div>
+      <div class="double-bar">
+        <div class="dbar-item">
+          <span class="dbl">Recommended</span>
+          <div class="dbt"><div class="dbf" style="width:${recW}%;background:#94a3b8"></div></div>
+          <span class="dbv" style="color:var(--muted)">${fmt(f.rec)}</span>
+        </div>
+        <div class="dbar-item">
+          <span class="dbl">Actual</span>
+          <div class="dbt"><div class="dbf" style="width:${actW}%;background:${f.color}"></div></div>
+          <span class="dbv" style="color:${f.color}">${fmt(f.act)}</span>
+        </div>
+      </div>`;
+    barContainer.appendChild(div);
+  });
+
+  // ── EXTRA INCOME / CORPUS GAIN ──
+  // Extra corpus vs recommended = actCorpusTotal - recCorpusTotal
+  // Also compute: what if same total investment, but reallocated optimally?
+  const optCorpusArb = sipCorpus(RATES.arb, recArb, maxMon);
+  const optCorpusEq  = sipCorpus(RATES.eq,  recEq,  maxMon);
+  const optCorpusSav = sipCorpus(RATES.sav,  recSav, maxMon);
+  const optCorpusTotal = optCorpusArb + optCorpusEq + optCorpusSav;
+
+  // Post-tax comparison (30% slab for FD, 12.5% LTCG for arb+eq)
+  const TAX_SLAB = 0.30, LTCG = 0.125, EX = 125000;
+  function postTaxCorpus(corpus, inv, isEquity) {
+    const gain = corpus - inv;
+    if (isEquity) {
+      const tax = Math.max(0, gain - EX) * LTCG;
+      return corpus - tax;
+    } else {
+      return corpus - gain * TAX_SLAB;
+    }
+  }
+  const recInvArb = recArb*maxMon, recInvEq = recEq*maxMon, recInvSav = recSav*maxMon;
+  const actInvArb = actArb*arbMon, actInvEq = actEq*eqMon, actInvSav = actSav*savMon;
+
+  const recPostTax = postTaxCorpus(recCorpusArb,recInvArb,true) + postTaxCorpus(recCorpusEq,recInvEq,true) + postTaxCorpus(recCorpusSav,recInvSav,false);
+  const actPostTax = postTaxCorpus(actCorpusArb,actInvArb,true) + postTaxCorpus(actCorpusEq,actInvEq,true) + postTaxCorpus(actCorpusSav,actInvSav,false);
+  const extraPostTax = actPostTax - recPostTax;
+
+  const eiBox = document.getElementById('extraIncomeBox');
+  const isPositive = corpusDelta >= 0;
+  eiBox.style.background = isPositive ? 'linear-gradient(135deg,#f0fdf4,#dcfce7)' : 'linear-gradient(135deg,#fff1f2,#ffe4e6)';
+  eiBox.style.borderColor = isPositive ? '#86efac' : '#fca5a5';
+  document.getElementById('eiHeadline').style.color = isPositive ? 'var(--green)' : 'var(--red)';
+  document.getElementById('eiHeadline').textContent = isPositive
+    ? `Extra ${fmtCr(Math.abs(corpusDelta))} generated vs recommended allocation`
+    : `${fmtCr(Math.abs(corpusDelta))} corpus shortfall vs recommended allocation`;
+
+  const eiGrid = document.getElementById('eiGrid');
+  eiGrid.innerHTML = `
+    <div class="ei-card" style="border-color:${isPositive?'#86efac':'#fca5a5'}">
+      <div class="eil">Gross Corpus Difference</div>
+      <div class="eiv" style="color:${isPositive?'var(--green)':'var(--red)'}">${fmtCrGap(corpusDelta)}</div>
+      <div class="ein">Actual corpus minus goal-recommended corpus at maturity (${maxMon}m)</div>
+    </div>
+    <div class="ei-card" style="border-color:${isPositive?'#86efac':'#fca5a5'}">
+      <div class="eil">Post-Tax Corpus Difference</div>
+      <div class="eiv" style="color:${isPositive?'var(--green)':'var(--red)'}">${fmtCrGap(extraPostTax)}</div>
+      <div class="ein">After LTCG @ 12.5% on equity/arb gains; FD interest taxed at 30% slab</div>
+    </div>
+    <div class="ei-card" style="border-color:${isPositive?'#86efac':'#fca5a5'}">
+      <div class="eil">Monthly SIP Difference</div>
+      <div class="eiv" style="color:${deltaTotal>=0?'var(--green)':'var(--red)'}">${deltaTotal>=0?'+':''}${fmt(deltaTotal)}</div>
+      <div class="ein">You are investing ${Math.abs(deltaTotal)>0?(deltaTotal>0?'more':'less'):''} ${fmt(Math.abs(deltaTotal))}/month vs what goals require</div>
+    </div>`;
+
+  // ── INSIGHTS ──
+  const insights = [];
+  const arbGap = actArb - recArb, eqGap = actEq - recEq, savGap = actSav - recSav;
+
+  if (Math.abs(savGap) > 1000 && savGap > 0) {
+    insights.push({type:'warn', icon:'⚠️', text:`You are over-investing in Savings/FD by ${fmt(savGap)}/month. FD interest is taxed at your income slab (likely 30%), making it the least efficient instrument. Consider shifting this to Arbitrage.`});
+  }
+  if (arbGap < -1000) {
+    insights.push({type:'warn', icon:'💡', text:`Arbitrage allocation is ${fmt(Math.abs(arbGap))}/month below recommendation. Arbitrage delivers ~7% p.a. and is taxed as equity (12.5% LTCG after 12m) — significantly better post-tax than FD at your slab.`});
+  }
+  if (arbGap >= 0 && Math.abs(arbGap) < 5000) {
+    insights.push({type:'good', icon:'✅', text:`Arbitrage Fund allocation is on track (within ₹5,000 of recommendation). Good tax-efficient parking for your non-equity SIP portion.`});
+  }
+  if (eqGap < -5000) {
+    insights.push({type:'bad', icon:'🔴', text:`Equity Fund is under-allocated by ${fmt(Math.abs(eqGap))}/month. For goals beyond 36 months, equity's compounding advantage is the primary wealth-building engine. Increase this first.`});
+  }
+  if (eqGap > 10000) {
+    insights.push({type:'good', icon:'✅', text:`Equity Fund is over-allocated by ${fmt(eqGap)}/month vs goal requirement. This accelerates long-term corpus — retain if your risk appetite allows.`});
+  }
+  if (deltaTotal < -recTotal * 0.15) {
+    insights.push({type:'bad', icon:'🚨', text:`Total SIP is ${(Math.abs(deltaTotal)/recTotal*100).toFixed(0)}% below goal requirements. At this rate, you may not achieve all your goals on time. Consider increasing monthly SIP by ${fmt(Math.abs(deltaTotal))}.`});
+  }
+  if (deltaTotal >= 0 && deltaTotal < recTotal * 0.05) {
+    insights.push({type:'good', icon:'✅', text:`Total monthly SIP is well-calibrated to your goals — within 5% of the recommended amount.`});
+  }
+  if (corpusDelta > recCorpusTotal * 0.1) {
+    insights.push({type:'good', icon:'🟢', text:`Your current allocation is projected to generate ${fmtCr(corpusDelta)} more corpus than the minimum goal requirement at maturity. This is a healthy buffer.`});
+  }
+  if (extraPostTax > 0) {
+    insights.push({type:'good', icon:'💰', text:`Post-tax advantage of your allocation: ${fmtCrGap(extraPostTax)} over recommended. Primarily driven by equity and arbitrage being more tax-efficient than FD.`});
+  }
+  if (!insights.length) {
+    insights.push({type:'good', icon:'✅', text:'Your SIP allocation is closely aligned with goal recommendations. No significant rebalancing needed.'});
+  }
+
+  const iList = document.getElementById('insightList');
+  iList.innerHTML = '';
+  insights.forEach(ins => {
+    const d = document.createElement('div');
+    d.className = `insight-item ${ins.type}`;
+    d.innerHTML = `<span class="ii-icon">${ins.icon}</span><span class="ii-text">${ins.text}</span>`;
+    iList.appendChild(d);
+  });
+}
+// ─────────────────────────────── FUND EXPLORER ───────────────────────────────
+
+const FE_SEGMENTS = [
+  {
+    id: 'largecap', name: 'Large Cap', icon: '🔵',
+    color: '#1d4ed8', bg: '#dbeafe',
+    desc: 'Top 100 companies by market cap. Lower volatility, steady compounding.',
+    horizon: '5–7 years', risk: 'Moderate',
+    liveUrl: 'https://www.valueresearchonline.com/funds/selector/category/1/large-cap-fund/#tab=returnsdata',
+    funds: [
+      { name: 'Mirae Asset Large Cap Fund', house: 'Mirae Asset', r1y: 22.4, r3y: 14.8, r5y: 18.2, r10y: 16.4, aum: '₹37,842 Cr', tags: ['top', 'consistent'], minSip: 1000 },
+      { name: 'Axis Bluechip Fund', house: 'Axis MF', r1y: 18.6, r3y: 12.1, r5y: 15.9, r10y: 14.8, aum: '₹45,231 Cr', tags: ['consistent'], minSip: 500 },
+      { name: 'ICICI Pru Bluechip Fund', house: 'ICICI Prudential', r1y: 26.3, r3y: 18.4, r5y: 20.1, r10y: 17.2, aum: '₹52,198 Cr', tags: ['top', 'consistent'], minSip: 100 },
+      { name: 'Nippon India Large Cap Fund', house: 'Nippon India', r1y: 28.7, r3y: 19.6, r5y: 21.3, r10y: 16.9, aum: '₹27,645 Cr', tags: ['top'], minSip: 100 },
+      { name: 'Kotak Bluechip Fund', house: 'Kotak MF', r1y: 20.1, r3y: 15.2, r5y: 17.4, r10y: 15.1, aum: '₹8,924 Cr', tags: ['consistent'], minSip: 100 },
+    ]
+  },
+  {
+    id: 'flexicap', name: 'Flexi Cap', icon: '🟣',
+    color: '#7c3aed', bg: '#f5f3ff',
+    desc: 'Invests across large, mid & small caps freely. Best all-weather choice for most investors.',
+    horizon: '5+ years', risk: 'Moderate-High',
+    liveUrl: 'https://www.valueresearchonline.com/funds/selector/category/1/flexi-cap-fund/#tab=returnsdata',
+    funds: [
+      { name: 'Parag Parikh Flexi Cap Fund', house: 'PPFAS MF', r1y: 27.6, r3y: 20.4, r5y: 24.8, r10y: 19.6, aum: '₹72,115 Cr', tags: ['top', 'consistent'], minSip: 1000 },
+      { name: 'HDFC Flexi Cap Fund', house: 'HDFC MF', r1y: 32.1, r3y: 22.8, r5y: 23.4, r10y: 18.7, aum: '₹54,283 Cr', tags: ['top'], minSip: 100 },
+      { name: 'UTI Flexi Cap Fund', house: 'UTI MF', r1y: 19.4, r3y: 13.6, r5y: 18.1, r10y: 16.3, aum: '₹25,441 Cr', tags: ['consistent'], minSip: 500 },
+      { name: 'Franklin India Flexi Cap Fund', house: 'Franklin Templeton', r1y: 30.4, r3y: 21.3, r5y: 22.7, r10y: 17.8, aum: '₹15,328 Cr', tags: ['top'], minSip: 500 },
+      { name: 'Canara Robeco Flexi Cap Fund', house: 'Canara Robeco', r1y: 22.8, r3y: 16.4, r5y: 19.6, r10y: 15.9, aum: '₹11,247 Cr', tags: ['consistent'], minSip: 1000 },
+    ]
+  },
+  {
+    id: 'midcap', name: 'Mid Cap', icon: '🟡',
+    color: '#b45309', bg: '#fef3c7',
+    desc: 'Companies ranked 101–250 by market cap. Higher growth potential with moderate volatility.',
+    horizon: '7+ years', risk: 'High',
+    liveUrl: 'https://www.valueresearchonline.com/funds/selector/category/1/mid-cap-fund/#tab=returnsdata',
+    funds: [
+      { name: 'Kotak Emerging Equity Fund', house: 'Kotak MF', r1y: 34.2, r3y: 26.8, r5y: 28.4, r10y: 22.1, aum: '₹42,318 Cr', tags: ['top', 'consistent'], minSip: 100 },
+      { name: 'HDFC Mid-Cap Opportunities Fund', house: 'HDFC MF', r1y: 38.6, r3y: 28.4, r5y: 30.1, r10y: 23.4, aum: '₹67,941 Cr', tags: ['top'], minSip: 100 },
+      { name: 'SBI Magnum Midcap Fund', house: 'SBI MF', r1y: 35.4, r3y: 24.6, r5y: 27.3, r10y: 21.8, aum: '₹18,924 Cr', tags: ['consistent'], minSip: 500 },
+      { name: 'Nippon India Growth Fund', house: 'Nippon India', r1y: 40.1, r3y: 29.2, r5y: 31.6, r10y: 22.9, aum: '₹24,185 Cr', tags: ['top'], minSip: 100 },
+      { name: 'Edelweiss Mid Cap Fund', house: 'Edelweiss MF', r1y: 42.3, r3y: 30.1, r5y: 32.8, r10y: null, aum: '₹5,841 Cr', tags: ['top', 'risky'], minSip: 100 },
+    ]
+  },
+  {
+    id: 'smallcap', name: 'Small Cap', icon: '🔴',
+    color: '#dc2626', bg: '#fee2e2',
+    desc: 'Companies ranked 251+ by market cap. Highest long-term return potential, highest volatility.',
+    horizon: '10+ years', risk: 'Very High',
+    liveUrl: 'https://www.valueresearchonline.com/funds/selector/category/1/small-cap-fund/#tab=returnsdata',
+    funds: [
+      { name: 'Nippon India Small Cap Fund', house: 'Nippon India', r1y: 36.8, r3y: 32.4, r5y: 38.6, r10y: 28.4, aum: '₹54,221 Cr', tags: ['top', 'consistent'], minSip: 100 },
+      { name: 'HDFC Small Cap Fund', house: 'HDFC MF', r1y: 30.2, r3y: 26.8, r5y: 33.4, r10y: 24.1, aum: '₹28,418 Cr', tags: ['consistent'], minSip: 100 },
+      { name: 'SBI Small Cap Fund', house: 'SBI MF', r1y: 28.4, r3y: 24.1, r5y: 32.1, r10y: 26.8, aum: '₹26,984 Cr', tags: ['consistent'], minSip: 500 },
+      { name: 'Axis Small Cap Fund', house: 'Axis MF', r1y: 32.6, r3y: 27.3, r5y: 35.2, r10y: null, aum: '₹19,284 Cr', tags: ['top'], minSip: 500 },
+      { name: 'Kotak Small Cap Fund', house: 'Kotak MF', r1y: 34.1, r3y: 28.6, r5y: 36.8, r10y: 24.6, aum: '₹14,218 Cr', tags: ['top', 'risky'], minSip: 100 },
+    ]
+  },
+  {
+    id: 'arbitrage', name: 'Arbitrage', icon: '⚖️',
+    color: '#2563eb', bg: '#dbeafe',
+    desc: 'Exploits price difference between cash & futures markets. Equity taxation, FD-beating post-tax returns.',
+    horizon: '12+ months', risk: 'Very Low',
+    liveUrl: 'https://www.valueresearchonline.com/funds/selector/category/1/arbitrage-fund/#tab=returnsdata',
+    funds: [
+      { name: 'Nippon India Arbitrage Fund', house: 'Nippon India', r1y: 7.8, r3y: 6.4, r5y: 6.1, r10y: 6.4, aum: '₹21,984 Cr', tags: ['top', 'consistent'], minSip: 100 },
+      { name: 'Kotak Equity Arbitrage Fund', house: 'Kotak MF', r1y: 7.6, r3y: 6.3, r5y: 6.0, r10y: 6.3, aum: '₹47,218 Cr', tags: ['top', 'consistent'], minSip: 500 },
+      { name: 'HDFC Arbitrage Fund', house: 'HDFC MF', r1y: 7.7, r3y: 6.4, r5y: 6.0, r10y: 6.2, aum: '₹18,421 Cr', tags: ['consistent'], minSip: 100 },
+      { name: 'SBI Arbitrage Opportunities Fund', house: 'SBI MF', r1y: 7.5, r3y: 6.2, r5y: 5.9, r10y: 6.1, aum: '₹8,124 Cr', tags: ['consistent'], minSip: 500 },
+      { name: 'ICICI Pru Equity Arbitrage Fund', house: 'ICICI Prudential', r1y: 7.9, r3y: 6.5, r5y: 6.2, r10y: 6.5, aum: '₹24,618 Cr', tags: ['top', 'consistent'], minSip: 100 },
+    ]
+  },
+  {
+    id: 'hybrid', name: 'Hybrid / BAF', icon: '⚡',
+    color: '#0891b2', bg: '#e0f2fe',
+    desc: 'Dynamic allocation between equity & debt. Balanced Advantage Funds auto-rebalance based on valuations.',
+    horizon: '3–5 years', risk: 'Moderate',
+    liveUrl: 'https://www.valueresearchonline.com/funds/selector/category/1/balanced-advantage-fund/#tab=returnsdata',
+    funds: [
+      { name: 'HDFC Balanced Advantage Fund', house: 'HDFC MF', r1y: 24.1, r3y: 18.6, r5y: 18.9, r10y: 16.4, aum: '₹91,284 Cr', tags: ['top', 'consistent'], minSip: 100 },
+      { name: 'ICICI Pru Balanced Advantage Fund', house: 'ICICI Prudential', r1y: 18.4, r3y: 14.2, r5y: 15.6, r10y: 14.8, aum: '₹58,421 Cr', tags: ['consistent'], minSip: 100 },
+      { name: 'Edelweiss Balanced Advantage Fund', house: 'Edelweiss MF', r1y: 19.8, r3y: 14.8, r5y: 16.4, r10y: null, aum: '₹11,284 Cr', tags: ['top'], minSip: 100 },
+      { name: 'Nippon India Balanced Advantage Fund', house: 'Nippon India', r1y: 17.6, r3y: 13.4, r5y: 14.8, r10y: 13.2, aum: '₹8,941 Cr', tags: ['consistent'], minSip: 100 },
+      { name: 'Kotak Balanced Advantage Fund', house: 'Kotak MF', r1y: 16.9, r3y: 12.8, r5y: 14.2, r10y: null, aum: '₹14,218 Cr', tags: ['consistent'], minSip: 100 },
+    ]
+  },
+  {
+    id: 'contra', name: 'Contra / Value', icon: '🔄',
+    color: '#059669', bg: '#d1fae5',
+    desc: 'Invests against market trends in undervalued stocks. Contrarian philosophy — buy when others sell.',
+    horizon: '7+ years', risk: 'High',
+    liveUrl: 'https://www.valueresearchonline.com/funds/selector/category/1/contra-fund/#tab=returnsdata',
+    funds: [
+      { name: 'SBI Contra Fund', house: 'SBI MF', r1y: 42.6, r3y: 30.4, r5y: 33.8, r10y: 22.4, aum: '₹32,841 Cr', tags: ['top', 'consistent'], minSip: 500 },
+      { name: 'Kotak India EQ Contra Fund', house: 'Kotak MF', r1y: 28.4, r3y: 20.1, r5y: 21.6, r10y: 17.4, aum: '₹2,841 Cr', tags: ['consistent'], minSip: 100 },
+      { name: 'Invesco India Contra Fund', house: 'Invesco MF', r1y: 36.8, r3y: 24.8, r5y: 26.4, r10y: 20.1, aum: '₹14,218 Cr', tags: ['top'], minSip: 1000 },
+      { name: 'IDFC Sterling Value Fund', house: 'IDFC MF', r1y: 44.2, r3y: 32.1, r5y: 35.4, r10y: 18.6, aum: '₹8,124 Cr', tags: ['top', 'risky'], minSip: 100 },
+      { name: 'Templeton India Value Fund', house: 'Franklin Templeton', r1y: 38.4, r3y: 27.6, r5y: 28.8, r10y: 18.9, aum: '₹1,984 Cr', tags: ['risky'], minSip: 500 },
+    ]
+  },
+  {
+    id: 'debt', name: 'Debt / FD Alternative', icon: '🏦',
+    color: '#475569', bg: '#f1f5f9',
+    desc: 'Short duration, corporate bond & liquid funds. Better than FD returns with lower tax if held strategically.',
+    horizon: '1–3 years', risk: 'Low',
+    liveUrl: 'https://www.valueresearchonline.com/funds/selector/category/2/short-duration-fund/#tab=returnsdata',
+    funds: [
+      { name: 'HDFC Short Term Debt Fund', house: 'HDFC MF', r1y: 8.4, r3y: 6.8, r5y: 7.2, r10y: 7.8, aum: '₹14,821 Cr', tags: ['top', 'consistent'], minSip: 100 },
+      { name: 'ICICI Pru Short Term Fund', house: 'ICICI Prudential', r1y: 8.6, r3y: 7.1, r5y: 7.4, r10y: 8.1, aum: '₹18,241 Cr', tags: ['top', 'consistent'], minSip: 100 },
+      { name: 'Nippon India Short Term Fund', house: 'Nippon India', r1y: 8.1, r3y: 6.6, r5y: 7.0, r10y: 7.6, aum: '₹6,841 Cr', tags: ['consistent'], minSip: 100 },
+      { name: 'Aditya Birla SL Corporate Bond Fund', house: 'Aditya Birla SL', r1y: 8.9, r3y: 7.3, r5y: 7.6, r10y: 8.2, aum: '₹22,184 Cr', tags: ['top'], minSip: 100 },
+      { name: 'Kotak Corporate Bond Fund', house: 'Kotak MF', r1y: 8.3, r3y: 6.9, r5y: 7.1, r10y: 7.9, aum: '₹11,284 Cr', tags: ['consistent'], minSip: 100 },
+    ]
+  },
+];
+
+let feActivePeriod = '3y';
+let feActiveSegment = 'all';
+
+function feColor(val, segment) {
+  if (val === null) return '#94a3b8';
+  if (segment === 'arbitrage' || segment === 'debt') {
+    return val >= 7 ? '#16a34a' : val >= 6 ? '#b45309' : '#dc2626';
+  }
+  return val >= 25 ? '#16a34a' : val >= 15 ? '#b45309' : val >= 10 ? '#2563eb' : '#dc2626';
+}
+
+function renderFundExplorer() {
+  const container = document.getElementById('feSegments');
+  container.innerHTML = '';
+  const segs = feActiveSegment === 'all' ? FE_SEGMENTS : FE_SEGMENTS.filter(s => s.id === feActiveSegment);
+
+  segs.forEach(seg => {
+    // Sort funds by active period descending
+    const sorted = [...seg.funds].sort((a, b) => {
+      const av = a['r'+feActivePeriod] ?? -99;
+      const bv = b['r'+feActivePeriod] ?? -99;
+      return bv - av;
+    });
+
+    const segDiv = document.createElement('div');
+    segDiv.className = 'fe-segment';
+    segDiv.innerHTML = `
+      <div class="fe-seg-header">
+        <div class="fe-seg-title">
+          <div class="fe-seg-icon" style="background:${seg.bg}">${seg.icon}</div>
+          <div>
+            <div class="fe-seg-name" style="color:${seg.color}">${seg.name}</div>
+            <div class="fe-seg-desc">${seg.desc} &nbsp;·&nbsp; Horizon: ${seg.horizon} &nbsp;·&nbsp; Risk: ${seg.risk}</div>
+          </div>
+        </div>
+        <a class="fe-live-link" href="${seg.liveUrl}" target="_blank" rel="noopener">Live Rankings ↗</a>
+      </div>
+      <div class="fe-fund-grid" id="grid_${seg.id}"></div>`;
+    container.appendChild(segDiv);
+
+    const grid = segDiv.querySelector(`#grid_${seg.id}`);
+    sorted.forEach((f, idx) => {
+      const periods = [{k:'1y',l:'1Y'},{k:'3y',l:'3Y'},{k:'5y',l:'5Y'},{k:'10y',l:'10Y'}];
+      const retHtml = periods.map(p => {
+        const v = f['r'+p.k];
+        const isActive = p.k === feActivePeriod;
+        const color = feColor(v, seg.id);
+        const activeStyle = isActive ? `background:${seg.bg};` : '';
+        return `<div class="fc-ret-item">
+          <div class="rperiod">${p.l}</div>
+          <div class="rval${isActive?' active-period':''}" style="color:${color};${activeStyle}">${v !== null ? v.toFixed(1)+'%' : '—'}</div>
+        </div>`;
+      }).join('');
+
+      const tagsHtml = f.tags.map(t => {
+        const label = t==='top'?'⭐ Top Performer':t==='consistent'?'📊 Consistent':'⚠️ Higher Risk';
+        return `<span class="fc-tag ${t}">${label}</span>`;
+      }).join('');
+
+      const card = document.createElement('div');
+      card.className = 'fe-fund-card';
+      card.style.cssText = `border-left-color:${seg.color}`;
+      card.innerHTML = `
+        <div class="fc-rank">${idx+1}</div>
+        <div class="fc-name">${f.name}</div>
+        <div class="fc-house">${f.house} &nbsp;·&nbsp; AUM ${f.aum} &nbsp;·&nbsp; Min SIP ₹${f.minSip.toLocaleString('en-IN')}</div>
+        <div class="fc-returns">${retHtml}</div>
+        <div class="fc-meta">${tagsHtml}</div>`;
+      grid.appendChild(card);
+    });
+  });
+}
+
+function feFilter(segment, btn) {
+  feActiveSegment = segment;
+  document.querySelectorAll('.fe-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFundExplorer();
+}
+
+function fePeriod(period, btn) {
+  feActivePeriod = period;
+  document.querySelectorAll('.fe-period-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFundExplorer();
+}
+</script>
+</body>
+</html>
